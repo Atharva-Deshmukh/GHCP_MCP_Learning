@@ -4,6 +4,15 @@
 
 To actually execute these instructions, we need to enable LLM with capabilities via MCP.
 
+## How to Configure MCP Servers in VS Code
+
+There are two equivalent ways to register an MCP server in VS Code:
+
+1. **Command line (used in this repo):** Run `code --add-mcp '<json-config>'` in a terminal. This writes the server entry directly into your user-level MCP config, so no manual file editing is needed. This is the approach used for every server below.
+2. **`.vscode/mcp.json` file:** Add the same JSON config manually under a `servers` key in a `.vscode/mcp.json` file at the repo root. Useful when you want the config checked into source control and shared with the team.
+
+After adding a server (either way), open the **MCP: List Servers** command from the Command Palette to confirm it started, or check the MCP output panel for errors. Restart VS Code (or use **MCP: Restart Server**) if a newly added server's tools don't show up.
+
 ## MCP Server Setups
 
 We need the below MCP Server setups.
@@ -12,6 +21,8 @@ We need the below MCP Server setups.
 
 **Purpose:** Drives a real browser (navigate, click, fill forms, read page snapshots/network calls) so the agent can automate web UI interactions.
 **Used here:** Visits the login page, opens the registration form, fills in user details, and submits the registration for each test user.
+
+![Playwright MCP diagram](Images/playwright-mcp.svg)
 
 Installed server via cmd in VS Code instead of adding the github repo's json in `.vscode/mcp.json` file:
 
@@ -23,6 +34,8 @@ code --add-mcp '{"name":"playwright","command":"npx","args":["@playwright/mcp@la
 
 **Purpose:** Lets the agent query a MySQL database directly, without hand-written SQL scripts.
 **Used here:** Reads the `UserData` and `Passwords` tables from the `MCP_DB` database to source the registration form data. Falls back to 5 self-chosen username/password pairs if this server is unavailable.
+
+![MySQL MCP diagram](Images/mysql-mcp.svg)
 
 ```powershell
 pip install mysql-mcp-server
@@ -41,6 +54,8 @@ code --add-mcp '{\"name\":\"mysql\",\"command\":\"uv\",\"args\":[\"--directory\"
 **Purpose:** Sends REST API requests (GET/POST/etc.) and returns status codes/responses, so the agent can test APIs without writing HTTP client code.
 **Used here:** Calls the login API to verify each newly registered user's credentials and captures the response status code for the report.
 
+![REST API MCP diagram](Images/rest-api-mcp.svg)
+
 ```powershell
 npm install -g dkmaker-mcp-rest-api
 
@@ -52,6 +67,8 @@ code --add-mcp '{\"name\":\"rest-api\",\"command\":\"node\",\"args\":[\"C:/Users
 **Purpose:** Gives the agent read/write access to a specific local directory on disk.
 **Used here:** Reads the Postman collection file (containing the API endpoint details) from the Desktop so the REST API MCP Server knows what request to send.
 
+![Filesystem MCP diagram](Images/filesystem-mcp.svg)
+
 ```powershell
 code --add-mcp ('{"name":"filesystem","command":"cmd","args":["/c","npx","-y","@modelcontextprotocol/server-filesystem","C:/Users/' + $env:USERNAME + '/Desktop"]}' -replace '"','\"')
 ```
@@ -60,6 +77,8 @@ code --add-mcp ('{"name":"filesystem","command":"cmd","args":["/c","npx","-y","@
 
 **Purpose:** Reads from and writes to Excel workbooks (sheets, ranges, tables) directly on disk.
 **Used here:** Writes the final `Analysis.xlsx` report with the username, password, registration status, and API response status code for each test user.
+
+![Excel MCP diagram](Images/excel-mcp.svg)
 
 ```powershell
 $m='{"name":"excel","command":"cmd","args":["/c","npx","--yes","@negokaz/excel-mcp-server"],"env":{"EXCEL_MCP_PAGING_CELLS_LIMIT":"4000"}}'; code --add-mcp ($m -replace '"','\"')

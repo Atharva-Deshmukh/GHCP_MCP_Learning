@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="180" viewBox="0 0 620 180" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="620" height="180" fill="#ffffff"/>
+  <rect x="20" y="60" width="140" height="60" rx="8" fill="#0b5fff" opacity="0.1" stroke="#0b5fff" stroke-width="2"/>
+  <text x="90" y="95" text-anchor="middle" font-size="14" fill="#0b5fff">AI Agent</text>
+
+  <rect x="240" y="60" width="160" height="60" rx="8" fill="#946f00" opacity="0.1" stroke="#946f00" stroke-width="2"/>
+  <text x="320" y="88" text-anchor="middle" font-size="13" fill="#946f00">Filesystem MCP</text>
+  <text x="320" y="106" text-anchor="middle" font-size="11" fill="#946f00">(sandboxed disk access)</text>
+
+  <rect x="480" y="60" width="120" height="60" rx="8" fill="#555555" opacity="0.1" stroke="#555555" stroke-width="2"/>
+  <text x="540" y="88" text-anchor="middle" font-size="13" fill="#555555">Desktop</text>
+  <text x="540" y="106" text-anchor="middle" font-size="11" fill="#555555">Postman collection</text>
+
+  <line x1="160" y1="90" x2="235" y2="90" stroke="#333" stroke-width="2" marker-end="url(#arrow4)"/>
+  <line x1="400" y1="90" x2="475" y2="90" stroke="#333" stroke-width="2" marker-end="url(#arrow4)"/>
+  <text x="197" y="80" text-anchor="middle" font-size="10" fill="#333">MCP tool call</text>
+  <text x="437" y="80" text-anchor="middle" font-size="10" fill="#333">read_file</text>
+
+  <defs>
+    <marker id="arrow4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+    </marker>
+  </defs>
+</svg>
