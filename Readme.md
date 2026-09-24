@@ -4,6 +4,51 @@
 
 To actually execute these instructions, we need to enable LLM with capabilities via MCP.
 
+## Concept
+
+```text
+                 ┌─────────────────────┐
+                 │        LLM          │
+                 │  "Brain / Reasoner" │
+                 │                     │
+                 │ Understands intent  │
+                 │ Reasons             │
+                 │ Plans actions       │
+                 └──────────┬──────────┘
+                            │
+                            │ MCP
+                            │ "Tool interface"
+                            ▼
+          ┌──────────────────────────────────┐
+          │          MCP Servers             │
+          ├──────────────┬───────────────────┤
+          │ MySQL MCP    │ Filesystem MCP    │
+          │              │                   │
+          │ Database     │ Files             │
+          ├──────────────┼───────────────────┤
+          │ REST API MCP │ Excel MCP         │
+          │              │                   │
+          │ APIs         │ Excel workbooks   │
+          └──────────────┴───────────────────┘
+```
+
+```text
+                              GitHub Copilot / LLM
+                           🧠
+                            │
+                  ┌─────────┴─────────┐
+                  │       MCP         │
+                  └─────────┬─────────┘
+                            │
+       ┌────────────────────┼────────────────────┐
+       │                    │                    │
+       ▼                    ▼                    ▼
+   MySQL MCP           REST API MCP         Filesystem MCP
+       │                    │                    │
+       ▼                    ▼                    ▼
+    MySQL              REST APIs            Your Files
+```
+
 ## How to Configure MCP Servers in VS Code
 
 There are two equivalent ways to register an MCP server in VS Code:
